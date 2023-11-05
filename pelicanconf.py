@@ -1,5 +1,5 @@
 import yaml
-import sys
+import sys, os
 from datetime import datetime
 sys.path.append('.')
 
@@ -10,7 +10,7 @@ from py_code.parse_bib import *
 from py_code.toc_md_reader import TOCMarkdownReader
 from py_code.filter_projects import filter_projects 
 from py_code.template_block import *
-from py_code import al_folio_generator 
+from py_code import al_folio_extension 
 from py_code.urls_dev import relative_url, absolute_url
 
 SITE = None
@@ -19,7 +19,7 @@ with open("content/config.yml", "rb") as stream:
 
 PLUGINS = ['pelican.plugins.webassets', 
            'pelican.plugins.sitemap', 
-           al_folio_generator]
+           al_folio_extension]
 
 AUTHOR = f'{SITE["first_name"]} {SITE["middle_name"] if SITE["middle_name"] else ""} {SITE["last_name"]}'
 SITENAME = SITE["title"]
@@ -97,9 +97,6 @@ PAGINATION_PATTERNS = (
     (1, '{base_name}', '{base_name}/index.html'),
     (2, '{base_name}/page/{number}/', '{base_name}/page/{number}/index.html'),
 )
-
-# Uncomment following line if you want document-relative URLs when developing
-# RELATIVE_URLS = True 
 
 # Should extend to getting all data from the folder 
 SITE["data"] = {}

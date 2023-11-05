@@ -29,11 +29,22 @@ highlight_theme_light: github   # https://github.com/jwarby/jekyll-pygments-them
 highlight_theme_dark: native    # https://github.com/jwarby/jekyll-pygments-themes
 
 # -----------------------------------------------------------------------------
-# Layout
+# Layout and navigation
 # -----------------------------------------------------------------------------
 
 navbar_fixed: true
 footer_fixed: true
+
+# Each dropdown must have a title, nav_order, and children that
+# are each a link (you can use markdown and Pelican attach / filename)
+# syntax) or the string "divider".
+dropdowns:
+  - title: submenus
+    nav_order: 7
+    children:
+      - "[talks]({filename}/pages/talks.md)"
+      - "divider"
+      - "[teaching]({filename}/pages/teaching.md)"
 
 # Dimensions
 max_width: 850px
