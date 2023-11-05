@@ -25,7 +25,7 @@
     {%- endif -%}
     {% if output_file == 'posts/index.html' %}
         {{ SITE.blog_nav_title }} | {{ title }}
-    {%- elif page.title is not none and page.url != "/" -%}
+    {%- elif page.title and output_file != 'index.html' -%}
         {%- if not page.title or page.title == "" -%}
             {{ page.date | strftime("%Y") }} | {{ title }}
         {%- else -%}
