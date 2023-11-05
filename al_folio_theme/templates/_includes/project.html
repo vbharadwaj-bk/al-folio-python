@@ -1,0 +1,40 @@
+{% macro project_card( project ) -%}
+
+{% from '_includes/figure.html' import figure %}
+
+{% set mdata = project.metadata %}
+<div class="grid-sizer"></div>
+<div class="grid-item">
+  {% if mdata.redirect -%}
+  <a href="{{ mdata.redirect }}">
+    {%- else -%}
+    <a href="{{ project.url | relative_url }}">
+      {%- endif %}
+      <div class="card hoverable">
+        {%- if mdata.img %}
+        {{ figure(path=mdata.img, alt="project thumbnail") }}
+        {%- endif %}
+        <div class="card-body">
+          <h2 class="card-title text-lowercase">{{ mdata.title }}</h2>
+          <p class="card-text">{{ project.summary }}</p>
+          <div class="row ml-1 mr-1 p-0">
+            {%- if mdata.github -%}
+            <div class="github-icon">
+              <div class="icon" data-toggle="tooltip" title="Code Repository">
+                <a href="{{ mdata.github }}"><i class="fab fa-github gh-icon"></i></a>
+              </div>
+              {%- if mdata.github_stars -%}
+              <span class="stars" data-toggle="tooltip" title="GitHub Stars">
+                <i class="fas fa-star"></i>
+                <span id="{{ mdata.github_stars }}-stars"></span>
+              </span>
+              {%- endif %}
+            </div>
+            {%- endif %}
+          </div>
+        </div>
+      </div>
+    </a>
+</div>
+
+{% endmacro %}

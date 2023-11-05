@@ -1,0 +1,18 @@
+{%- if SITE.enable_google_analytics -%}
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ SITE.google_analytics }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ window.dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', '{{ SITE.google_analytics }}');
+  </script>
+{%- endif -%}
+{%- if SITE.enable_cronitor_analytics -%}
+  <!-- Cronitor RUM -->
+  <script async src="https://rum.cronitor.io/script.js"></script>
+  <script>
+    window.cronitor = window.cronitor || function() { (window.cronitor.q = window.cronitor.q || []).push(arguments); };
+    cronitor('config', { clientKey: '{{SITE.cronitor_analytics}}' });
+  </script>
+{%- endif -%}

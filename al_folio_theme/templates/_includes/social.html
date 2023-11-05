@@ -1,0 +1,113 @@
+<div class="social">
+            {%- if SITE.email -%}
+            <a href="mailto:{{ SITE.email }}" title="email"><i class="fas fa-envelope"></i></a>
+            {% endif %}
+            {%- if SITE.telegram_username -%}
+            <a href="https://telegram.me/{{ SITE.telegram_username }}" title="telegram"><i class="fab fa-telegram"></i></a>
+            {% endif %}
+            {%- if SITE.whatsapp_number -%}
+            <a href="https://wa.me/{{ SITE.whatsapp_number }}" title="whatsapp"><i class="fab fa-whatsapp"></i></a>
+            {% endif %}
+            {%- if SITE.orcid_id -%}
+            <a href="https://orcid.org/{{ SITE.orcid_id }}" title="ORCID"><i class="ai ai-orcid"></i></a>
+            {% endif %}
+            {%- if SITE.scholar_userid -%}
+            <a href="https://scholar.google.com/citations?user={{ SITE.scholar_userid }}" title="Google Scholar"><i class="ai ai-google-scholar"></i></a>
+            {% endif %}
+            {%- if SITE.semanticscholar_id -%}
+            <a href="https://www.semanticscholar.org/author/{{ SITE.semanticscholar_id }}" title="Semantic Scholar"><i class="ai ai-semantic-scholar"></i></a>
+            {% endif %}
+            {%- if SITE.publons_id -%}
+            <a href="https://publons.com/a/{{ SITE.publons_id }}/" title="Publons"><i class="ai ai-publons"></i></a>
+            {% endif %}
+            {%- if SITE.lattes_id -%}
+            <a href="http://lattes.cnpq.br/{{ SITE.lattes_id }}" target="_blank" title="Lattes"><i class="ai ai-lattes"></i></a>
+            {% endif %}
+            {%- if SITE.osf_id -%}
+            <a href="https://osf.io/{{ SITE.osf_id }}/" title="Open Science Framework"><i class="ai ai-osf"></i></a>
+            {% endif %}
+            {%- if SITE.research_gate_profile -%}
+            <a href="https://www.researchgate.net/profile/{{SITE.research_gate_profile}}/" title="ResearchGate"><i class="ai ai-researchgate"></i></a>
+            {% endif %}
+            {%- if SITE.scopus_id -%}
+            <a href="https://www.scopus.com/authid/detail.uri?authorId={{SITE.scopus_id}}" title="Scopus"><i class="ai ai-scopus"></i></a>
+            {% endif %}
+            {%- if SITE.github_username -%}
+            <a href="https://github.com/{{ SITE.github_username }}" title="GitHub"><i class="fab fa-github"></i></a>
+            {% endif %}
+            {%- if SITE.linkedin_username -%}
+            <a href="https://www.linkedin.com/in/{{ SITE.linkedin_username }}" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            {% endif %}
+            {%- if SITE.twitter_username -%}
+            <a href="https://twitter.com/{{ SITE.twitter_username }}" title="Twitter"><i class="fab fa-twitter"></i></a>
+            {% endif %}
+            {%- if SITE.mastodon_username -%}
+            <a rel="me" href="https://{{ SITE.mastodon_username  }}" title="Mastodon"><i class="fab fa-mastodon"></i></a>
+            {% endif %}
+            {%- if SITE.medium_username -%}
+            <a href="https://medium.com/@{{ SITE.medium_username }}" title="Medium"><i class="fab fa-medium"></i></a>
+            {% endif %}
+            {%- if SITE.quora_username -%}
+            <a href="https://www.quora.com/profile/{{ SITE.quora_username }}" title="Quora"><i class="fab fa-quora"></i></a>
+            {% endif %}
+            {%- if SITE.blogger_url -%}
+            <a href="{{ SITE.blogger_url }}" title="Blogger"><i class="fab fa-blogger-b"></i></a>
+            {% endif %}
+            {%- if SITE.work_url -%}
+            <a href="{{ SITE.work_url }}" title="Work"><i class="fas fa-briefcase"></i></a>
+            {% endif %}
+            {%- if SITE.wikidata_id -%}
+            <a href="https://www.wikidata.org/wiki/{{ SITE.wikidata_id }}" title="Wikidata"><i class="fas fa-barcode"></i></a>
+            {% endif %}
+            {%- if SITE.wikipedia_id -%}
+            <a href="https://wikipedia.org/wiki/User:{{ SITE.wikipedia_id }}" title="Wikipedia"><i class="fab fa-wikipedia-w"></i></a>
+            {% endif %}
+            {%- if SITE.strava_userid -%}
+            <a href="https://www.strava.com/athletes/{{ SITE.strava_userid }}" title="Strava"><i class="fab fa-strava"></i></a>
+            {% endif %}
+            {%- if SITE.keybase_username -%}
+            <a href="https://keybase.io/{{ SITE.keybase_username }}" title="Keybase"><i class="fab fa-keybase"></i></a>
+            {% endif %}
+            {%- if SITE.gitlab_username -%}
+            <a href="https://gitlab.com/{{ SITE.gitlab_username }}" title="GitLab"><i class="fab fa-gitlab"></i></a>
+            {% endif %}
+            {%- if SITE.dblp_url -%}
+            <a href="{{ SITE.dblp_url }}" title="DBLP"><i class="ai ai-dblp"></i></a>
+            {% endif %}
+            {%- if SITE.stackoverflow_id -%}
+            <a href="https://stackoverflow.com/users/{{ SITE.stackoverflow_id }}" title="Stackoverflow"><i class="fab fa-stack-overflow"></i></a>
+            {% endif %}
+            {%- if SITE.kaggle_id -%}
+            <a href="https://www.kaggle.com/{{ SITE.kaggle_id }}" title="Kaggle"><i class="fab fa-kaggle"></i></a>
+            {% endif %}
+            {%- if SITE.lastfm_id -%}
+            <a href="https://www.last.fm/user/{{ SITE.lastfm_id }}" title="Last FM"><i class="fab fa-lastfm"></i></a>
+            {% endif %}
+            {%- if SITE.spotify_id -%}
+            <a href="https://open.spotify.com/user/{{ SITE.spotify_id }}" title="Spotify"><i class="fab fa-spotify"></i></a>
+            {% endif %}
+            {%- if SITE.pinterest_id -%}
+            <a href="https://www.pinterest.com/{{ SITE.pinterest_id }}" title="Pinterest"><i class="fab fa-pinterest"></i></a>
+            {% endif %}
+            {%- if SITE.unsplash_id -%}
+            <a href="https://unsplash.com/@{{ SITE.unsplash_id }}" title="Unsplash"><i class="fab fa-unsplash"></i></a>
+            {% endif %}
+            {%- if SITE.instagram_id -%}
+            <a href="https://instagram.com/{{ SITE.instagram_id }}" title="Instagram"><i class="fab fa-instagram"></i></a>
+            {% endif %}
+            {%- if SITE.facebook_id -%}
+            <a href="https://facebook.com/{{ SITE.facebook_id }}" title="Facebook"><i class="fab fa-facebook"></i></a>
+            {% endif %}
+            {%- if SITE.youtube_id -%}
+            <a href="https://youtube.com/@{{ SITE.youtube_id }}" title="YouTube"><i class="fab fa-youtube"></i></a>
+            {% endif %}
+            {%- if SITE.discord_id -%}
+            <a href="https://discord.com/users/{{ SITE.discord_id }}" title="Discord"><i class="fab fa-discord"></i></a>
+            {% endif %}
+            {%- if SITE.zotero_username -%}
+            <a href="https://www.zotero.org/{{ SITE.zotero_username }}" title="Zotero"><i class="ai ai-zotero"></i></a>
+            {% endif %}
+            {%- if SITE.rss_icon -%}
+            <a href="{{ SITE.baseurl }}/feed.xml" title="RSS Feed"><i class="fas fa-rss-square"></i></a>
+            {% endif %}
+</div> 

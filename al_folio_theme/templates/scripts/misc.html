@@ -1,0 +1,31 @@
+{% if SITE.enable_tooltips %}
+  <!-- Enable Tooltips -->
+  <script type="text/javascript">
+  $(function () {$('[data-toggle="tooltip"]').tooltip()})
+  </script>
+{%- endif %}
+
+{%- if SITE.enable_medium_zoom %}
+  <!-- Medium Zoom JS -->
+  <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@{{ SITE.medium_zoom.version }}/dist/medium-zoom.min.js" integrity="{{ SITE.medium_zoom.integrity }}" crossorigin="anonymous"></script>
+  <script defer src="{{ 'theme/assets/js/zoom.js' | relative_url }}"></script>
+{%- endif -%}
+
+{% if page.toc and page.toc.sidebar %}
+  <!-- Sidebar Table of Contents -->
+  <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+{% endif %}
+
+  <!-- Bootstrap Table -->
+  <script defer src="https://unpkg.com/bootstrap-table@{{ SITE.bootstrap_table.version }}/dist/bootstrap-table.min.js"></script>
+
+  <!-- Load Common JS -->
+  {% assets filters="rjsmin", output="assets/js/no_defer_min.js", "assets/js/no_defer.js" %}
+  <script src="{{SITEURL}}/{{ASSET_URL}}"></script>
+  {% endassets %}
+  {% assets filters="rjsmin", output="assets/js/common_min.js", "assets/js/common.js" %}
+  <script defer src="{{SITEURL}}/{{ASSET_URL}}"></script>
+  {% endassets %}
+  {% assets filters="rjsmin", output="assets/js/copy_code_min.js", "assets/js/copy_code.js" %}
+  <script defer src="{{SITEURL}}/{{ASSET_URL}}"></script>
+  {% endassets %}

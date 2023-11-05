@@ -1,0 +1,30 @@
+{% extends "default.html" %}
+
+{% set page = {'url': '/posts/tag' ~ tag, 'date': SITE.time, 'title': '#' ~ tag } %}
+{% block content %}
+<div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title"> <i class="fas fa-hashtag fa-sm"></i> {{ tag }} </h1>
+    <p class="post-description"> an archive of posts with this tag. See <a class="post-link" href={{"posts/tag/" | relative_url }}>all tags</a>. </p>
+  </header>
+
+  <article>
+    <div class="table-responsive">
+      <table class="table table-sm table-borderless">
+      {% for post in dates_page.object_list %}
+        <tr>
+          <th scope="row">{{ post.date | strftime("%b %-d, %Y") }}</th>
+          <td>
+              <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          </td>
+        </tr>
+      {% endfor %}
+      </table>
+    </div>
+    {% include '_includes/pagination.html' %}
+  </article>
+
+</div>
+
+{% endblock %}

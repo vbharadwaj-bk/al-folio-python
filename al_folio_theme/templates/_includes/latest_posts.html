@@ -1,0 +1,40 @@
+
+          <div class="news">
+            {% if SITE.latest_posts is not none -%}
+            {%- set latest_posts_size = articles | length -%}
+            <div class="table-responsive" {% if SITE.latest_posts.scrollable and latest_posts_size > 3 %}style="max-height: 60vw"{% endif %}>
+              <table class="table table-sm table-borderless">
+              {%- set latest_posts = articles | rejectattr("hide_from_latest") -%}
+              {% if SITE.latest_posts.limit %}
+              {% set latest_posts_limit = SITE.latest_posts.limit %}
+              {% else %}
+              {% set latest_posts_limit = latest_posts_size %}
+              {% endif %}
+              {% for item in latest_posts %}
+                {% if loop.index0 < latest_posts_limit %}
+                <tr>
+                  <th scope="row">
+                    <div class="desktop">{{ item.date | strftime("%b %-d, %Y") }} &nbsp; &nbsp;</div> 
+                    <div class="mobile">{{ item.date | strftime("%m/%d/%y") }}&nbsp;&nbsp;</div> 
+                  </th>
+                  <td>
+                    {% if not item.metadata.redirect %}
+                      <a class="news-title" href="{{ item.url | relative_url }}">{{ item.title }}</a>
+                    {% elif '://' in item.metadata.redirect %}
+                      <a class="news-title" href="{{ item.metadata.redirect }}" target="_blank">{{ item.title }}</a>
+                      <svg width="2rem" height="2rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </svg>
+                    {% else %}
+                      <a class="news-title" href="{{ item.metadata.redirect | relative_url }}">{{ item.title }}</a>
+                    {% endif %}
+                  </td>
+                </tr>
+                {% endif %}
+              {%- endfor %}
+              </table>
+            </div>
+          {%- else -%}
+            <p>No posts so far...</p>
+          {%- endif %}
+          </div>

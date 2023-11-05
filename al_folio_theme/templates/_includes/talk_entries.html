@@ -1,0 +1,47 @@
+{% from "_includes/figure.html" import figure with context %}
+
+{% macro talk( entry, is_last, nodivide=false) -%}
+      {% if is_last %}
+      {% set class="last" %}
+      {% elif nodivide %}
+      {% set class="nodivide" %}
+      {% endif%}
+      <div class="row {{class}}">
+        <div class="col-sm-3 date">
+        {{ entry.date | strftime("%b %-d, %Y") }}
+        </div>
+
+        <div class="col-sm-9">
+          <!-- Title -->
+          <div class="title">{{entry.venue}}</div>
+          <div class="periodical">{{entry.title}}</div>
+
+            <!-- Links/Buttons -->
+            <div class="links">  
+              {%- for field in entry.buttons -%}
+                {% set link = entry.buttons[field] -%}
+                {% set relative = "://" in link %}
+                {% if not relative -%}
+                <a href="{{ link }}" class="btn btn-sm z-depth-0" role="button">{{ field | capitalize}}</a>
+                {%- else -%}
+                <a href="{{ link | relative_url }}" class="btn btn-sm z-depth-0" role="button">{{field | capitalize}}</a>
+                {%- endif %}
+              {%- endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endmacro %}
+
+{% macro talk_list( talks, nodivide=false) -%}
+          <div class="talks">
+            <ol class="talks">
+              <li>
+                {% for entry in talks %}
+                  <h2 class="talks">&nbsp;</h2>
+                  {{ talk(entry, loop.last, nodivide) }}
+                {% endfor %}
+              </li>
+            </ol>
+          </div>
+{% endmacro %}

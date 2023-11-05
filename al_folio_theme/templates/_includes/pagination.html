@@ -1,0 +1,37 @@
+{% if DEFAULT_PAGINATION %}
+
+{% if dates_page.has_next() %}
+{% set next_page_url = dates_next_page.url | relative_url %}
+{% else %}
+{% set next_page_url = none %}
+{% endif %}
+
+{% if dates_page.has_previous() %}
+{% set prev_page_url = dates_previous_page.url | relative_url %}
+{% else %}
+{% set prev_page_url = none %}
+{% endif %}
+
+
+{%- if dates_paginator.num_pages > 1 -%}
+<nav aria-label="Blog page naviation">
+  <ul class="pagination pagination-lg justify-content-center">
+    <li class="page-item {% if not prev_page_url %}disabled{% endif %}">
+      <a class="page-link" href="{{ prev_page_url }}" tabindex="-1" aria-disabled="{{ dates_page.has_previous() }}">Newer</a>
+    </li>
+
+    {% set start_range = [1, dates_page.number - 2] | max %}
+    {% set end_range = [dates_paginator.num_pages, dates_page.number + 2] | min %}
+    {% for page_num in range(start_range, end_range + 1) -%}
+      {% set page = dates_paginator.page(page_num) %}
+      <li class="page-item {% if dates_page.number == page_num %}active{% endif %}"><a class="page-link" href="{{ page.url | relative_url }}" title="{{blah}}">{{ page_num }}</a></li>
+    {% endfor -%}
+
+    <li class="page-item {% if not next_page_url %}disabled{% endif %}">
+      <a class="page-link" href="{{ next_page_url }}">Older</a>
+    </li>
+  </ul>
+</nav>
+{%- endif -%}
+
+{% endif %}

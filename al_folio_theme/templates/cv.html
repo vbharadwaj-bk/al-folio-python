@@ -1,0 +1,97 @@
+{% extends "default.html" %}
+
+{% from "_includes/cv/list.html" import list_element with context %}
+{% from "_includes/cv/list_groups.html" import list_groups with context %}
+{% from "_includes/cv/map.html" import map with context %}
+{% from "_includes/cv/nested_list.html" import nested_list with context %}
+{% from "_includes/cv/time_table.html" import time_table with context %}
+
+{% from "_includes/resume/basics.html" import basics with context %}
+{% from "_includes/resume/awards.html" import awards with context %}
+{% from "_includes/resume/certificates.html" import certificates with context %}
+{% from "_includes/resume/education.html" import education with context %}
+{% from "_includes/resume/interests.html" import interests with context %}
+{% from "_includes/resume/languages.html" import languages with context %}
+{% from "_includes/resume/projects.html" import projects with context %}
+{% from "_includes/resume/publications.html" import publications with context %}
+{% from "_includes/resume/references.html" import references with context %}
+{% from "_includes/resume/skills.html" import skills with context %}
+{% from "_includes/resume/volunteer.html" import volunteer with context %}
+{% from "_includes/resume/work.html" import work with context %}
+
+{% block content %}
+{% if not SITE.data.resume %}
+<div class="post">
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title }} {% if page.cv_pdf %}<a href="{{ 'assets/pdf/' ~ page.cv_pdf | relative_url}}" target="_blank" rel="noopener noreferrer" class="float-right"><i class="fas fa-file-pdf"></i></a>{% endif %}</h1>
+      {% if page.description %}<p class="post-description">{{ page.description }}</p>{% endif %}
+  </header>
+
+  <article>
+    <div class="cv">
+      {% for entry in SITE.data.cv %}
+        <a class="anchor" id="{{ entry.title }}"></a>
+        <div class="card mt-3 p-3">
+          <h3 class="card-title font-weight-medium">{{ entry.title }}</h3>
+          <div>
+          {% if entry.type == "list" %}
+            {{ list_element(entry) }}
+          {% elif entry.type == "map" %}
+            {{ map(entry) }}
+          {% elif entry.type == "time_table" %}
+            {{ time_table(entry) }}
+          {% elif entry.type == "nested_list" %}
+            {{ nested_list(entry) }}
+          {% elif entry.type == "list_groups" %}
+            {{ list_groups(entry) }}
+          {% else %}
+            {{ entry.contents }}
+          {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+      </div>
+  </article>
+</div>
+{% else %}
+<div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title }} {% if page.cv_pdf %}<a href="{{'assets/pdf/' ~ page.cv_pdf  | relative_url}}" target="_blank" rel="noopener noreferrer" class="float-right"><i class="fas fa-file-pdf"></i></a>{% endif %}</h1>
+    {% if page.description %}<p class="post-description">{{ page.description }}</p>{% endif %}
+  </header>
+
+  <h4>Table of contents</h4>
+  <ul class="timeline">
+  {% for entry in SITE.data.resume if not
+    ((SITE.jsonresume and SITE.jsonresume.size > 0 and entry[0] not in SITE.jsonresume) or
+    entry[0] == "meta" or entry[1].size == 0)%}
+     
+    <li><a href="#{{ entry[0] }}"><span class="badge-toc">{{ entry[0] | capitalize }}</span></a></li>
+  {% endfor %}
+  </ul>
+
+  <article>
+    <div class="cv">
+      {% for data in SITE.data.resume if not
+        ((SITE.jsonresume and SITE.jsonresume.size > 0 and data[0] not in SITE.jsonresume)
+        or data[0] == "meta" or data[1].size == 0 ) %}
+        <a class="anchor" id="{{ data[0] }}"></a>
+        <div class="card mt-3 p-3">
+          <h3 class="card-title font-weight-medium">{{ data[0] | capitalize }}</h3>
+          <div>
+            {% set dtype = data[0] %}
+            {% set data = data[1] %}
+            {% if dtype == "basics" %}
+              {{ basics(data) }}
+            {% else %}
+              Unrecognized CV type {{dtype}}.
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+      </div>
+  </article>
+</div>
+{% endif %}
+{% endblock %}

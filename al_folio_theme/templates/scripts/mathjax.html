@@ -1,0 +1,12 @@
+  {%- if SITE.enable_math -%}
+  <!-- MathJax -->
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        tags: 'ams'
+      }
+    };
+  </script>
+  <script defer id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@{{ SITE.mathjax.version }}/es5/tex-mml-chtml.js"></script>
+  <script defer src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  {%- endif %}

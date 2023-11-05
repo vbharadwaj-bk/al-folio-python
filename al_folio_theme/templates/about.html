@@ -1,0 +1,116 @@
+{% extends "default.html" %}
+
+{% from "_includes/news.html" import news_display with context %}
+{% from "_includes/bib.html" import pub_list with context %}
+{% from "_includes/talk_entries.html" import talk_list with context %}
+
+{% block content %}
+      <div class="post">
+        <header class="post-header">
+          <div class="desktop">
+            <h1 class="post-title">
+              {% if SITE.title is none -%}<span class="font-weight-bold">{{ SITE.first_name }}</span>&nbsp;{%- if SITE.middle_name -%}
+                  {{- SITE.middle_name -}}&nbsp;
+                {%- endif -%}
+              {{ SITE.last_name }}{%- else -%}{{ SITE.title }}{%- endif %}
+            </h1>
+            <p class="desc">{{ page.subtitle }}</p>
+          </div>
+        </header>
+        <article>
+          {% if page.profile -%}
+          <div class="desktop">
+            <div class="profile float-{%- if page.profile.align == 'left' -%}left{%- else -%}right{%- endif -%}">
+              {%- if page.profile.image %}
+                {%- set profile_image_path = page.profile.image  -%}
+
+                {% if page.profile.image_circular %}
+                  {%- set profile_image_class = "img-fluid z-depth-1 rounded-circle" -%}
+                {% else %}
+                  {%- set profile_image_class = "img-fluid z-depth-1 rounded" -%}
+                {% endif %}
+                {{ figure(profile_image_path, class=profile_image_class, alt=page.profile.image, cache_bust=True)}}
+              {% endif -%}
+              <div class="d-flex justify-content-center">
+              {%- include '_includes/social.html' %}
+              </div>
+              {% if page.profile.address %}
+                <div class="address">
+                {{ page.profile.address }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="mobile">
+            <div class="container">
+            <div class="row">
+            <div class="col-3">
+            </div>
+            <div class="col">
+              <div class="profile">
+                {%- if page.profile.image %}
+                  {%- set profile_image_path = page.profile.image  -%}
+
+                  {% if page.profile.image_circular %}
+                    {%- set profile_image_class = "img-fluid z-depth-1 rounded-circle" -%}
+                  {% else %}
+                    {%- set profile_image_class = "img-fluid z-depth-1 rounded" -%}
+                  {% endif %}
+                  {{ figure(profile_image_path, class=profile_image_class, alt=page.profile.image, cache_bust=True)}}
+                {% endif -%}
+              </div>
+            </div>
+            <div class="col-3">
+            </div>
+            </div>
+              <div class="row d-flex justify-content-center">
+              {%- include '_includes/social.html' %}
+              </div>
+              <div class="row d-flex justify-content-center">
+                {% if page.profile.address %}
+                  <div class="address">
+                  {{ page.profile.address }}
+                  </div>
+                {% endif %}
+              </div>
+              </div>
+            </div>
+          </div>
+          {%- endif %}
+
+          <div class="clearfix">
+            {{ page.content }}
+          </div>
+
+          <!-- News -->
+          {% if page.news and SITE.announcements.enabled -%}
+            <hr>
+            <h2><a href="{{ 'news/' | relative_url }}" style="color: inherit;">news</a></h2>
+            {{ news_display(limit=true) }}
+          {%- endif %}
+
+          <!-- Talks -->
+          {% if page.talks -%}
+            <hr>
+            <h2><a href="{{ 'talks/' | relative_url }}" style="color: inherit;">recent & upcoming talks</a></h2>
+            {{ talk_list(SITE.data.talks, nodivide=true) }}
+          {%- endif %}
+
+          <!-- Latest posts -->
+          {% if page.latest_posts and SITE.blog_enabled -%}
+            <hr>
+            <h2><a href="{{ 'posts/' | relative_url }}" style="color: inherit;">latest posts</a></h2>
+            {%- include '_includes/latest_posts.html' %}
+          {%- endif %}
+
+          <!-- Selected papers -->
+          {% if page.selected_papers -%}
+            <hr>
+            <h2><a href="{{ 'publications/' | relative_url }}" style="color: inherit;">selected publications</a></h2>
+            {{ pub_list(SITE.publications | selectattr("selected"), nodivide=true) }}
+          {%- endif %}
+      </article>
+</div>
+
+{% endblock %}

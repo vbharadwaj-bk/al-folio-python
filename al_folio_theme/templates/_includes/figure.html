@@ -1,0 +1,41 @@
+{% macro figure( path,
+                class=None, 
+                width=None, 
+                height=None, 
+                min_width=None, 
+                min_height=None,
+                max_width=None,
+                max_height=None,
+                alt=None,
+                title=None,
+                zoomable=None,
+                caption=None,
+                cache_bust=False) -%}
+
+{% set img_path = path | replace(".jpg", "") | replace(".jpeg", "") | replace(".png", "") | replace(".tiff", "") %}
+
+<figure>
+  <picture>
+
+    <!-- Fallback to the original file -->
+    <img
+      src="{% if cache_bust %}{{ path | relative_url | bust_file_cache }}{% else %}{{ path | relative_url }}{% endif %}"
+      {% if class %}class="{{ class }}" {% endif %}
+      {% if width %}width="{{ width }}" {% else %}width="auto" {% endif %}
+      {% if height %}height="{{ height }} "{% else %}height="auto" {% endif %}
+      {% if min_width %}min-width="{{min_width }}"{% endif %}
+      {% if min_height %}min-height="{{min_height}} "{% endif %}
+      {% if max_width %}max-width="{{ max_width }} "{% endif %}
+      {% if max_height %}max-height="{{max_height}} "{% endif %}
+      {% if alt %}alt="{{alt}} "{% endif %}
+      {% if title %}title="{{title}}"{% endif %}
+      {% if zoomable %}data-zoomable{% endif %}
+      onerror="this.onerror=null; $('.responsive-img-srcset').remove();"
+    >
+  </picture>
+
+  {%- if caption -%}<figcaption class="caption">{{ caption }}</figcaption>{%- endif %}
+
+</figure>
+
+{%- endmacro %}

@@ -1,0 +1,60 @@
+{% extends "default.html" %}
+
+{% from "_includes/project.html" import project_card with context %}
+{% from "_includes/project_horizontal.html" import project_card_horizontal with context %}
+
+{% block content%}
+        <div class="post">
+          <header class="post-header">
+            <h1 class="post-title">{{ page.title }}</h1>
+            <p class="post-description">{{ page.summary}}</p>
+          </header>
+
+            <!-- pages/projects.md -->
+            <div class="projects">
+            {%- if SITE.enable_project_categories and page.display_categories %}
+              <!-- Display categorized projects -->
+              {%- for category in page.display_categories %}
+              <h2 class="category">{{ category }}</h2>
+              {%- set sorted_projects = pages | filter_projects(category) %}
+              <!-- Generate cards for each project -->
+              {% if page.horizontal -%}
+              <div class="container">
+                <div class="row row-cols-2">
+                {%- for project in sorted_projects -%}
+                  {{ project_card_horizontal(project) }}
+                {%- endfor %}
+                </div>
+              </div>
+              {%- else -%}
+              <div class="grid">
+                {%- for project in sorted_projects -%}
+                  {{ project_card(project) }}
+                {%- endfor %}
+              </div>
+              {%- endif -%}
+              {% endfor %}
+
+            {%- else -%}
+            <!-- Display projects without categories -->
+              {%- set sorted_projects = pages | filter_projects %}
+              <!-- Generate cards for each project -->
+              {% if page.horizontal -%}
+              <div class="container">
+                <div class="row row-cols-2">
+                {%- for project in sorted_projects -%}
+                  {{ project_card_horizontal(project) }}
+                {%- endfor %}
+                </div>
+              </div>
+              {%- else -%}
+              <div class="grid">
+                {%- for project in sorted_projects -%}
+                  {{ project_card(project) }}
+                {%- endfor %}
+              </div>
+              {%- endif -%}
+            {%- endif -%}
+            </div>
+        </div>
+{% endblock %}

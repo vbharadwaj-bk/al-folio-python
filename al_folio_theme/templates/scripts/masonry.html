@@ -1,0 +1,6 @@
+  {%- if SITE.enable_masonry -%}
+  <!-- Masonry & imagesLoaded -->
+  <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@{{ SITE.masonry.version }}/dist/masonry.pkgd.min.js" integrity="{{ SITE.masonry.integrity }}" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+  <script defer src="{{ 'theme/assets/js/masonry.js' | relative_url }}" ></script>
+  {%- endif -%}

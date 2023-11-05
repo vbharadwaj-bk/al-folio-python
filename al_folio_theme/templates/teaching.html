@@ -1,0 +1,40 @@
+{% extends "default.html" %}
+
+{% block content %}
+<div class="post">
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title }}</h1> 
+      {% if page.summary %}<p class="post-description">{{ page.summary }}</p>{% endif %}
+    </header>
+
+  <article>
+    {{ page.content }}
+    <div class="teaching">
+      <ol class="teaching">
+      {% for entry in teaching %}
+        <li>
+        <div class="card mt-3 p-3">
+          <div class="row">
+            <div class="col-sm-9">
+              <h5 class="card-title">{{ entry.title }} </h5>
+              <h6 class="card-subtitle font-italic">{{ entry.subtitle }}</h6>
+            </div>
+            <div class="col-sm-3 text-sm-right">
+              {% if entry.badge %}
+              <span class="badge">
+                {{ entry.badge }}
+              </span>
+              {% endif %}
+            </div>
+          </div>
+           <ul class="card-text font-weight-light list-group list-group-flush">
+           {{ entry.content }}
+           </ul>
+        </div>
+      </li>
+      {% endfor %}
+      </ol>
+    </div> 
+  </article>
+</div>
+{% endblock %}

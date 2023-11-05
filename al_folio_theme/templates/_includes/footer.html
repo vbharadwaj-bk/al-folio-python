@@ -1,0 +1,33 @@
+{% set footer_content %}
+        &copy; Copyright {{ SITE.time | strftime('%Y') }} {{ SITE.first_name }} {{ SITE.middle_name or ""}} {{ SITE.last_name }}. {{ SITE.footer_text or ""}}&nbsp;
+        {%- if SITE.impressum_path -%}
+        <a href="{{ SITE.url }}{{ SITE.baseurl }}{{ SITE.impressum_path }}">Impressum</a>.
+        {%- endif -%}
+        {%- if SITE.last_updated -%}
+        Last updated: {{ SITE.time | strftime('%B %d, %Y') }}.
+        {%- endif %}
+{% endset %}
+
+<div class="desktop">
+  {% if SITE.footer_fixed %}
+    <footer class="fixed-bottom">
+      <div class="container mt-0">
+        {{ footer_content}}
+      </div>
+    </footer>
+  {%- else -%}
+    <footer class="sticky-bottom mt-5">
+      <div class="container">
+        {{ footer_content }}
+      </div>
+    </footer>
+    {%- endif %}
+</div>
+
+<div class="mobile">
+    <footer class="sticky-bottom mt-5">
+      <div class="container mt-0">
+        {{ footer_content}}
+      </div>
+    </footer>
+</div>

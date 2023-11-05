@@ -1,0 +1,156 @@
+{% extends "default.html" %}
+{% set page = {'url': '/posts/', 'date': SITE.time} %}
+
+{% block content %}
+
+<div class="post">
+
+  {% set blog_name_size = SITE.blog_name | length %}
+  {% set blog_description_size = SITE.blog_description | length %}
+
+  {% if blog_name_size > 0 or blog_description_size > 0 %}
+  <div class="header-bar">
+    <h1>{{ SITE.blog_name }}</h1>
+    <h2>{{ SITE.blog_description }}</h2>
+  </div>
+  {% endif %}
+
+  <div class="desktop">
+    {% if SITE.display_tags or SITE.display_categories %}
+    <div class="tag-category-list">
+      <ul class="p-0 m-0">
+        {% for tag in SITE.display_tags %}
+          <li>
+            {% for tag_object in tags %}
+              {% if tag_object[0].name == tag %} 
+              <i class="fas fa-hashtag fa-sm"></i> <a href="{{ tag_object[0].url | relative_url }}">{{ tag }}</a>
+              {% endif %}
+            {% endfor %}
+          </li>
+          {% if not loop.last %}
+            <p>&bull;</p>
+          {% endif %}
+        {% endfor %}
+        {% if SITE.display_categories|length > 0 and SITE.display_tags|length > 0 %}
+          <p>&bull;</p>
+        {% endif %}
+        {% for category in SITE.display_categories %} 
+          <li>
+            {% for category_object in categories %}
+              {% if category_object[0].name == category %}
+                <i class="fas fa-tag fa-sm"></i> <a href="{{ category_object[0].url | relative_url }}">{{ category }}</a>
+              {% endif %}
+            {% endfor %}
+          </li>
+          {% if not loop.last %}
+            <p>&bull;</p>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+
+  {% set featured_posts = SITE.posts %} <!-- selectattr('featured')-->
+  {% if featured_posts|length > 0 %}
+    <br>
+    <div class="container featured-posts">
+      {% set is_even = featured_posts.size % 2 == 0 %}
+      <div class="row row-cols-{% if featured_posts.size <= 2 or is_even == 0 %}2{% else %}3{% endif %}">
+      {% for post in featured_posts %}
+        <div class="card-item col">
+          <a href="{{ post.url | relative_url }}">
+            <div class="card hoverable">
+              <div class="row g-0">
+                <div class="col-md-12">
+                  <div class="card-body">
+                    <div class="float-right">
+                      <i class="fa-solid fa-thumbtack fa-xs"></i>
+                    </div>
+                    <h3 class="card-title text-lowercase">{{ post.title }}</h3>
+                    <p class="card-text">{{ post.summary }}</p>
+
+                    {% set year = post.date | strftime("%Y") %}
+
+                    <p class="post-meta">
+                      <a href="{{ SITE.baseurl ~ '/blog/' ~ year }}">
+                        <i class="fas fa-calendar fa-sm"></i> {{ year }} </a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+      </div>
+    </div>
+    <hr>
+  {% endif %}
+
+  <ul class="post-list">
+    {% for post in dates_page.object_list %}
+
+    {% set year = post.date | strftime("%Y") %}
+    {% set tags = post.tags | join('') %}  
+    {% set category = post.category %}
+
+    <li>
+{%- if post.thumbnail -%}
+<div class="row">
+          <div class="col-sm-9">
+{%- endif -%}
+        <h3>
+        {% if not post.redirect %}
+          <a class="post-title" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        {% elif '://' in post.redirect %}
+          <a class="post-title" href="{{ post.redirect }}" target="_blank">{{ post.title }}</a>
+          <svg width="2rem" height="2rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        {% else %}
+          <a class="post-title" href="{{ post.redirect | relative_url }}">{{ post.title }}</a>
+        {% endif %}
+      </h3>
+      <p>{{ post.summary }}</p>
+      <p class="post-meta">
+        {{ post.date.strftime('%B %-d, %Y') }}
+        {%- if post.external_source %}
+        &nbsp; &middot; &nbsp; {{ post.external_source }}
+        {%- endif %}
+      </p>
+      <p class="post-tags">
+        <a href="{{ ('posts/' ~ year ~ '/') | relative_url }}">
+          <i class="fas fa-calendar fa-sm"></i> {{ year }} </a>
+
+          {% if tags != "" %}
+          &nbsp; &middot; &nbsp;
+            {% for tag in post.tags %}
+            <a href="{{ tag.url | relative_url }}">
+              <i class="fas fa-hashtag fa-sm"></i> {{ tag }}</a> &nbsp;
+              {% endfor %}
+          {% endif %}
+
+          {% if category is not none %}
+          &nbsp; &middot; &nbsp;
+            <a href="{{ category.url | relative_url }}">
+              <i class="fas fa-tag fa-sm"></i> {{ category }}</a> &nbsp;
+          {% endif %}
+    </p>
+{%- if post.thumbnail -%}
+    </div>
+  <div class="col-sm-3">
+    <img class="card-img" src="{{post.thumbnail | relative_url}}" style="object-fit: cover; height: 90%" alt="image">
+  </div>
+</div>
+{%- endif -%}
+    </li>
+
+    {% endfor %}
+  </ul>
+
+  {% include '_includes/pagination.html' %}
+
+</div>
+
+{% endblock %}

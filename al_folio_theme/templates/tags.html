@@ -1,0 +1,29 @@
+{% extends "default.html" %}
+
+{% set page = {'url': '/posts/category', 'date': SITE.time, 'title': 'tags'} %}
+{% block content %}
+<div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title"> <i class="fas fa-hashtag fa-sm"></i> tags </h1>
+    <p class="post-description">all tags on this blog</p>
+  </header>
+
+  <article>
+    <div class="table-responsive">
+      <table class="table table-sm table-borderless">
+      {% for tag in tags %}
+        <tr>
+          <th scope="row">
+              <a class="post-link" href="{{ tag[0].url | relative_url }}">
+                <i class="fas fa-hashtag fa-sm"></i>&nbsp;&nbsp;{{ tag[0] }}</a>
+          </th>
+        </tr>
+      {% endfor %}
+      </table>
+    </div>
+  </article>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "default.html" %}
+{% set page = article %}
+
+{% block content %}
+
+<!-- _layouts/post.html -->
+{%- set year = article.date | strftime("%Y") -%}
+{%- set category = article.category -%}
+
+{% if article._styles %}
+<!-- Article style -->
+<style type="text/css">
+  {{ article._styles }}
+</style>
+{% endif %}
+
+<div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">{{ article.title }}</h1>
+    <p class="post-meta">{{ article.date | strftime("%B %-d, %Y") }}{%- if article.author -%}&nbsp; &middot; &nbsp;{{ article.author }}{%- endif -%}{%- if article.meta -%}&nbsp; &middot; &nbsp;{{ article.meta }}{%- endif -%}</p>
+    <p class="post-tags">
+      <a href="{{ SITE.SITEURL ~ '/blog/' ~ year }}"> <i class="fas fa-calendar fa-sm"></i> {{ year }} </a>
+      {%- if article.tags|length > 0 %}
+      &nbsp; &middot; &nbsp;
+        {% for tag in article.tags -%}
+        <a href="{{ tag.url | relative_url }}">
+          <i class="fas fa-hashtag fa-sm"></i> {{ tag }}</a> &nbsp;
+          {% endfor -%}
+      {% endif %}
+
+      {%- if category and category.name != "" %}
+      &nbsp; &middot; &nbsp;
+      <a href="{{ category.url | relative_url }}">
+        <i class="fas fa-tag fa-sm"></i> {{ category }}</a> &nbsp;
+      {% endif %}
+
+    </p>
+  </header>
+
+  <article class="post-content">
+    <div id="markdown-content">
+      {{ article.content }}
+    </div>
+  </article>
+</div>
+
+{% endblock %}

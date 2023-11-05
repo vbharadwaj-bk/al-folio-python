@@ -1,0 +1,29 @@
+{% macro news_display( limit ) -%}
+          <div class="news">
+            {% if news is not none -%}
+            {%- set news_size = news | length -%}
+            <div class="table-responsive" {% if limit and SITE.announcements.scrollable and news_size > 3 %}style="max-height: 60vw"{% endif %}>
+              <table class="table table-sm table-borderless">
+              {% if limit and SITE.announcements.limit %}
+              {% set news_limit = SITE.announcements.limit %}
+              {% else %}
+              {% set news_limit = news_size %}
+              {% endif %}
+              {% for item in news[:news_limit] %}
+                <tr>
+                  <th scope="row" class="text-nowrap">
+                    <div class="desktop">{{ item.date | strftime("%b %-d, %Y")}} &nbsp;&nbsp; </div> 
+                    <div class="mobile">{{ item.date | strftime("%m/%d/%y") }}&nbsp;&nbsp;</div> 
+                  </th>
+                  <td>
+                    {{ item.content | replace('<p>', '') | replace('</p>', '') }}
+                  </td>
+                </tr>
+              {%- endfor %}
+              </table>
+            </div>
+          {%- else -%}
+            <p>No news so far...</p>
+          {%- endif %}
+          </div>
+{% endmacro %}

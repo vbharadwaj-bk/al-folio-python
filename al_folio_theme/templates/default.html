@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="{% block html_lang %}{{ DEFAULT_LANG }}{% endblock html_lang %}">
+
+  {% from "_includes/figure.html" import figure with context %}
+
+  <!-- Head -->
+  <head>
+  {%- if page.redirect -%}
+    <meta http-equiv="refresh" content="3; url={{ SITE.URL }}/" />
+  {%- endif -%} 
+  {% include '_includes/head.html' %}
+  </head>
+
+  <!-- Body -->
+  <body class="{% if SITE.navbar_fixed %}fixed-top-nav{% endif %} {% if not SITE.footer_fixed %}sticky-bottom-footer{% endif %}">
+
+    <!-- Header -->
+    {%- include '_includes/header.html' %}
+
+    <!-- Content -->
+    <div class="container mt-5">
+      {% if page.toc and page.toc.sidebar %}
+        {% if page.toc.sidebar == "right" %}
+        <div class="row">
+          <!-- main content area -->
+          <div class="col-sm-9">
+            {% block content %}{% endblock %}
+          </div>
+          <!-- sidebar, which will move to the top on a small screen -->
+          <div class="col-sm-3">
+            <nav id="toc-sidebar" class="sticky-top"></nav>
+          </div>
+        </div>
+        {% else %}
+        <div class="row">
+          <!-- sidebar, which will move to the top on a small screen -->
+          <div class="col-sm-3">
+            <nav id="toc-sidebar" class="sticky-top"></nav>
+          </div>
+          <!-- main content area -->
+          <div class="col-sm-9">
+            {{ self.content() }}
+          </div>
+        </div>
+        {% endif %}
+      {% else %}
+        {{ self.content() }}
+      {% endif %}
+    </div>
+
+    <!-- Footer -->
+    {%- include '_includes/footer.html' %}
+
+    <!-- JavaScripts -->
+    {% include 'scripts/jquery.html' %}
+    {% include 'scripts/bootstrap.html' %}
+    {% include 'scripts/masonry.html' %}
+    {% include 'scripts/misc.html' %}
+    {% include 'scripts/badges.html' %}
+    {% include 'scripts/mathjax.html' %}
+    {% include 'scripts/analytics.html' %}
+    {% include 'scripts/progressBar.html' %}
+
+    {% if SITE.enable_darkmode %}
+    {% endif %}
+  </body>
+</html>
