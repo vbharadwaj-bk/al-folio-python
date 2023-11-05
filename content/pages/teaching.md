@@ -1,7 +1,7 @@
 ---
 title: teaching 
 template: teaching 
-nav: true 
+nav: false 
 nav_order: 5
 summary: Courses you've taught / TA'd for. 
 
