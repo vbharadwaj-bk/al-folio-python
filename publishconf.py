@@ -14,7 +14,6 @@ JINJA_FILTERS = {
                 'relative_url': relative_url, 
                 'absolute_url': absolute_url,
                 'bust_file_cache': bust_file_cache,
-                'bust_css_cache': bust_css_cache,
                 'slugify': slugify,
                 'filter_projects': filter_projects
                 }
