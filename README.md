@@ -43,7 +43,7 @@ which will build the website and prints log messages and a detailed stack trace 
 ### Deploying to Github Pages
 To deploy your website to Github Pages, follow the following steps:
 
-1. Set up a remote repo on Github to host your website, and make sure it has the same name as your Github handle followeed by `.github.io`. For example, my username is `vbharadwaj-bk`, so I would upload my files to a remote repository called `vbharadwaj-bk.github.io`
+1. Set up a remote repo on Github to host your website, and make sure it has the same name as your Github handle followed by `.github.io`. For example, my username is `vbharadwaj-bk`, so I would upload my files to a remote repository called `vbharadwaj-bk.github.io`
 
 2. Browse to `Settings` above the repo and click `Pages` on the left pane. Set up Github Pages; under the `Build and Deployment` tab, select
    `Github Actions` as the source for the build.
