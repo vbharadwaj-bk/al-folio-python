@@ -28,6 +28,7 @@ python -m invoke livereload
 ```
 This command will compile the site and open a browser window that dynamically updates as you edit
 the content of your website.
+
 5. Edit the content of your website. You can change `config.yml`, the contents of each page in the `pages` 
 directory, blog posts in the `articles` directory, and add your list of publications in
 `pages/publications.bib`.
