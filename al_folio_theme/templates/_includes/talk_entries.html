@@ -20,11 +20,11 @@
             <div class="links">  
               {%- for field in entry.buttons -%}
                 {% set link = entry.buttons[field] -%}
-                {% set relative = "://" in link %}
-                {% if not relative -%}
-                <a href="{{ link }}" class="btn btn-sm z-depth-0" role="button">{{ field | capitalize}}</a>
-                {%- else -%}
+                {% set relative = "://" not in link %}
+                {%- if relative -%}
                 <a href="{{ link | relative_url }}" class="btn btn-sm z-depth-0" role="button">{{field | capitalize}}</a>
+                {%- else -%}
+                <a href="{{ link }}" class="btn btn-sm z-depth-0" role="button">{{ field | capitalize}}</a>
                 {%- endif %}
               {%- endfor %}
             </div>
